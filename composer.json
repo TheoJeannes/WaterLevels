@@ -1,6 +1,8 @@
 {
     "require": {
-        "fabpot/goutte": "^4.0",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+      "symfony/browser-kit" : "*",
+      "symfony/http-client" : "*",
+      "symfony/css-selector" : "*"
     }
 }

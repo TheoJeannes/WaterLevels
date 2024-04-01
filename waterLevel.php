@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . "/vendor/autoload.php";
 
-use Goutte\Client;
+use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\HttpClient\HttpClient;
 
 $message = "";
@@ -52,9 +52,10 @@ if (!empty($message))
 
 function getWaterLevel(): int
 {
-    $client = new Client(HttpClient::create(['verify_peer' => false, 'verify_host' => false]));
-    $crawler = $client->request('GET', 'https://www.elwis.de/DE/dynamisch/gewaesserkunde/wasserstaende/index.php?target=2&pegelId=a6ee8177-107b-47dd-bcfd-30960ccc6e9c');
-    return $crawler->filter('tr[onmouseout*=td_1] > td[align=right] > b')->first()->text();
+    $client = new HttpBrowser(HttpClient::create(['verify_peer' => false, 'verify_host' => false]));
+    //Verif SSL desactivée, a réactiver si possible
+    $crawler = $client->request('GET', 'https://www.elwis.de/DE/dynamisch/Wasserstaende/Pegeleinzeln:K%C3%96LN');
+    return $crawler->filter('tr[onmouseout*=td_1] td[class="valignTop alignRight"] > b')->first()->text();
 }
-//print succes sur la page
+
 ?>
